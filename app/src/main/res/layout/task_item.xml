@@ -7,17 +7,17 @@
     <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/checkBox"/>
+            android:id="@+id/Done"/>
     <TextView
             android:text="TextView"
             android:ems="12"
             android:textSize="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textView"/>
+            android:id="@+id/task_output"/>
     <Button
             android:text="Delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/button" />
+            android:id="@+id/Delete_task" />
 </LinearLayout>
