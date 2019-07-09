@@ -57,6 +57,11 @@ class TaskTable {
             cursor.close()
             return tasks
         }
+
+        fun deleteAll(db:SQLiteDatabase) {
+            db.delete(TABLE_NAME,null,null)
+            db.close()
+        }
     }
 
 }

@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.task_item.view.*
 
-class TaskAdapter(val list:ArrayList<Task>,val context: Context): RecyclerView.Adapter<TaskViewHolder>()
+class TaskAdapter(val task_list:ArrayList<Task>,val context: Context): RecyclerView.Adapter<TaskViewHolder>()
 {
     fun updateTasks(newTasks: ArrayList<Task>) {
-        list.clear()
-        list.addAll(newTasks)
+        task_list.clear()
+        task_list.addAll(newTasks)
         notifyDataSetChanged()
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
@@ -20,10 +20,10 @@ class TaskAdapter(val list:ArrayList<Task>,val context: Context): RecyclerView.A
         return TaskViewHolder(view)
     }
 
-    override fun getItemCount(): Int = list.size
+    override fun getItemCount(): Int = task_list.size
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
-        val task_item = list[position]
+        val task_item = task_list[position]
         holder.itemView.apply{
             task_output.text = task_item.task
             Done.isChecked  = task_item.done
