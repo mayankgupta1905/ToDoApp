@@ -38,6 +38,9 @@ class TaskAdapter(val task_list:ArrayList<Task>,val context: Context): RecyclerV
         holder.itemView.delete_item.setOnClickListener {
             todoItemClickListener.onDeleteClick(task_item,position)
         }
+        holder.itemView.Done.setOnClickListener {
+            todoItemClickListener.onDoneClick(task_item,position)
+        }
     }
 }
 

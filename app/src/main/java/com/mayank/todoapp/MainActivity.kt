@@ -30,7 +30,15 @@ class MainActivity : AppCompatActivity() {
 
         adapter.todoItemClickListener = object : TodoItemClickListener {
             override fun onDoneClick(task: Task, position: Int) {
-
+                if(task.done)
+                    task.done = false
+                else
+                    task.done = true
+                TaskTable.updateTask(
+                    todotask,task
+                )
+                task_list[position].done = task.done
+                adapter.updateTasks(TaskTable.getAllTask(todotask))
             }
 
             override fun onDeleteClick(task: Task, position: Int) {

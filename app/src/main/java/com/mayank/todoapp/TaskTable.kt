@@ -2,6 +2,7 @@ package com.mayank.todoapp
 
 import android.content.ContentValues
 import android.database.sqlite.SQLiteDatabase
+import android.util.Log
 
 class TaskTable {
 
@@ -45,14 +46,14 @@ class TaskTable {
             val taskcol= cursor.getColumnIndexOrThrow("task")
             val donecol = cursor.getColumnIndexOrThrow("done")
 
-            do {
+            while (cursor.moveToNext()) {
                 val task = Task(
                     cursor.getInt(idcol),
                     cursor.getString(taskcol),
                     cursor.getInt(donecol) == 1
                 )
                 tasks.add(task)
-            }while (cursor.moveToNext())
+            }
             cursor.close()
             return tasks
         }
@@ -71,6 +72,7 @@ class TaskTable {
                 put("done",task.done)
             }
 
+            Log.i("Updation","updated done $task.done")
             db.update(TABLE_NAME,updateRow,"id = ?",arrayOf(task.id.toString()))
         }
 

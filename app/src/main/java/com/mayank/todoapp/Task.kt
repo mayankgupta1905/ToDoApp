@@ -1,6 +1,6 @@
 package com.mayank.todoapp
 
 data class Task(
-    val id:Int?,
-    val task:String,
-    val done:Boolean)
+    var id:Int?,
+    var task:String,
+    var done:Boolean)
