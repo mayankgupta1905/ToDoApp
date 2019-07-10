@@ -32,9 +32,9 @@
                android:id="@+id/Delete_all"
                android:layout_weight="1"/>
    </LinearLayout>
-
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvtask"
+            tools:listitem="@layout/task_item"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 

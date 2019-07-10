@@ -45,23 +45,35 @@ class TaskTable {
             val taskcol= cursor.getColumnIndexOrThrow("task")
             val donecol = cursor.getColumnIndexOrThrow("done")
 
-            while (cursor.moveToNext()) {
+            do {
                 val task = Task(
                     cursor.getInt(idcol),
                     cursor.getString(taskcol),
                     cursor.getInt(donecol) == 1
                 )
                 tasks.add(task)
-            }
-
+            }while (cursor.moveToNext())
             cursor.close()
             return tasks
         }
 
         fun deleteAll(db:SQLiteDatabase) {
             db.delete(TABLE_NAME,null,null)
-            db.close()
         }
+
+        fun deleteTask(db:SQLiteDatabase,id:Int) {
+            db.delete(TABLE_NAME,"id = $id",null)
+        }
+
+        fun updateTask(db:SQLiteDatabase,task:Task){
+            val updateRow = ContentValues().apply{
+                put("task",task.task)
+                put("done",task.done)
+            }
+
+            db.update(TABLE_NAME,updateRow,"id = ?",arrayOf(task.id.toString()))
+        }
+
     }
 
 }

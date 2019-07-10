@@ -3,9 +3,10 @@ package com.mayank.todoapp
 import android.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.task_item.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -23,13 +24,29 @@ class MainActivity : AppCompatActivity() {
 
 
         val adapter = TaskAdapter(task_list,this)
+        rvtask.layoutManager = LinearLayoutManager(this)
         rvtask.adapter = adapter
+
+
+        adapter.todoItemClickListener = object : TodoItemClickListener {
+            override fun onDoneClick(task: Task, position: Int) {
+
+            }
+
+            override fun onDeleteClick(task: Task, position: Int) {
+               TaskTable.deleteTask(todotask, task.id!!)
+                task_list.removeAt(position)
+                adapter.updateTasks(TaskTable.getAllTask(todotask))
+            }
+        }
 
         Add.setOnClickListener{
             TaskTable.insertTask(
                 todotask,Task(id = null,task = task_input.text.toString(),done = false)
             )
             adapter.updateTasks(TaskTable.getAllTask(todotask))
+            adapter.notifyDataSetChanged()
+            Log.i("Insertion","Data Inserted")
         }
 
         Delete_all.setOnClickListener{
@@ -44,15 +61,16 @@ class MainActivity : AppCompatActivity() {
                     TaskTable.deleteAll(todotask)
 
                     Toast.makeText(this@MainActivity,"List Deleted",Toast.LENGTH_SHORT).show()
+                    Log.i("Delete All","all deleted")
                 }
                 setNegativeButton("No"){dialog, which ->
                     Toast.makeText(this@MainActivity,"List Not Deleted",Toast.LENGTH_SHORT).show()
                 }
             }
-
             val dialog = builder.create()
 
             dialog.show()
         }
+
     }
 }
